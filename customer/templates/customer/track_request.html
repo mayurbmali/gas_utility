@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Track Your Service Requests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Service Type</th>
+            <th>Status</th>
+            <th>Submitted On</th>
+            <th>Attachment</th> <!-- Add this column -->
+        </tr>
+    </thead>
+    <tbody>
+        {% if requests %}
+            {% for request in requests %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ request.service_type }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.submitted_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if request.attachment %}
+                        <a href="{{ request.attachment.url }}" target="_blank">View Attachment</a> <!-- Link to attachment -->
+                    {% else %}
+                        No Attachment
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">No service requests found.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

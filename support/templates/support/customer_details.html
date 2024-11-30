@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Gas Utility</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'support:dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Customer Details</h2>
+        <p><strong>Username:</strong> {{ customer.username }}</p>
+        <p><strong>Address:</strong> {{ customer.address }}</p>
+        <p><strong>Contact Number:</strong> {{ customer.contact_number }}</p>
+
+        <h3>Service Requests</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Submitted At</th>
+                    <th>Attachment</th> <!-- Added column for attachment -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.service_type }}</td>
+                    <td>{{ request.description }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>{{ request.submitted_at }}</td>
+                    <td>
+                        {% if request.attachment %}
+                            <a href="{{ request.attachment.url }}" target="_blank">View Attachment</a> <!-- Link to view the attachment -->
+                        {% else %}
+                            No Attachment
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

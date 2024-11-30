@@ -1,0 +1,29 @@
+<!-- customer/service_request.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Submit Service Request</h2>
+
+<!-- Display success or error messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if form.errors %}
+    <div class="alert alert-danger">
+        Please correct the errors below.
+    </div>
+{% endif %}
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+

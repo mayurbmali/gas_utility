@@ -1,0 +1,20 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center mt-5">
+    <h1 class="display-4">Welcome to Gas Utility!</h1>
+    <p class="lead">Your one-stop solution for all gas utility services and support.</p>
+    <hr class="my-4">
+    <p>Choose a portal below to get started:</p>
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'customer:customer_home' %}" class="btn btn-primary btn-lg mx-3" role="button">Customer Portal</a>
+        {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'support:support_home' %}" class="btn btn-secondary btn-lg mx-3" role="button">Support Portal</a>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

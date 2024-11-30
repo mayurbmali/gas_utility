@@ -1,0 +1,12 @@
+<!-- update_status.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Update Request Status</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
+{% endblock %}
