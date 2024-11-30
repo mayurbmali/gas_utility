@@ -61,6 +61,7 @@ To run this project, make sure you have the following software installed:
 
    - For customers: Go to `http://127.0.0.1:8000/customer/` to submit service requests, track requests, and view account information.
    - For support: Go to `http://127.0.0.1:8000/support/` to manage service requests.
+        Access the Support using the superuser credentials created earlier.
 
 3. **Admin Panel**:
    Access the admin panel at `http://127.0.0.1:8000/admin/` using the superuser credentials created earlier.
